@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | Organiser Login</title>
+    </head>
+    <body id="organiser-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation Bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!--Welcom Message-->
+        <main class="page-section">
+            <h1>Organiser Login:</h1>
+            <p>Please login to your organiser account below!</p>
+
+            <form action="/organiser/login" method="POST">
+                <!--Organiser username-->
+                <p>
+                    Username: <input id="username" type="text" name="username" value="<%= formData.username || '' %>" />
+                </p>
+
+                <!--Organiser password-->
+                <p>
+                    Password: <input id="password" type="password" name="password" />
+                </p>
+
+                <a href="/organiser/create-account" class="link-button">Create new account</a>
+                <button type="submit" class="button">Login</button>
+            </form>
+
+            <!-- Feedback Messages -->
+            <div style="min-height: 1.5em; padding: 0.5em 0;">
+                <% if (error) { %>
+                    <p style="color: red;"><%= error %></p>
+                <% } else if (valError && valError.length > 0) { %>
+                    <ul style="color: red; padding-left: 1em; margin: 0; list-style: none;">
+                        <% valError.forEach(e => { %>
+                            <li><%= e.msg %></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            </div>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

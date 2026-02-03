@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | Settings</title>
+    </head>
+    <body id="organiser-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation Bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/organiser/home">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                    <li><a href="/organiser/home" class="nav-element">Organiser Home</a></li>
+                    <li><a href="/organiser/site-settings" class="nav-element">Site Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!--Organiser setting update-->
+        <main class="page-section">
+            <h1>Update your Organiser Settings:</h1>
+            <p>Here you can upodate your Event Manager name and description! This will show to attendees once you make a new event. Existing events will not be affected.</p>
+            <form action="/organiser/site-settings" method="POST">
+                <div class="info-container">
+                    <!--Obtain Event Manager Name-->
+                    <label for="managerName">Event Manager Name:</label>
+                    <input type="text" id="managerName" name="managerName" value="<%= managerName %>" required />
+
+                    <!--Obtain Event Manager Description-->
+                    <label for="managerDesc">Event Manager Description:</label>
+                    <textarea id="managerDesc" name="managerDesc" required><%= managerDesc %></textarea>
+                </div>
+                <button type="submit" class="button">Save Changes</button>
+            </form>
+
+            <!--Feedback Messages-->
+            <div style="min-height: 1.5em; padding: 0.5em 0; color: red;">
+                <%= error ? error : '' %>
+            </div>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

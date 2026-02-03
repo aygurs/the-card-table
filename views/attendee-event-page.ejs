@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | Event Booking</title>
+    </head>
+    <body id="attendee-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/attendee/home">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                    <li><a href="/attendee/home" class="nav-element">Attendee Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+
+            <!--Event info-->
+            <section class="page-section">
+                <h1><%= event.event_name %></h1>
+                <p><strong>Organised by:</strong> <%= event.event_manager_name %></p>
+                <p><strong>Description:</strong> <%= event.event_description %></p>
+                <p><strong>Date Published:</strong> <%= event.date_published %></p>
+                <p><strong>Event Location:</strong> <%= event.event_location %></p>
+                <p><strong>Date of Event:</strong> <%= event.date_of_event %></p>
+            </section>
+            
+            <!--Book tickets section-->
+            <section class="page-section">
+                <h2>Book Your Tickets</h2>
+                <form method="POST" action="/attendee/event/<%= event.event_id %>/book">
+
+                    <!--List of tickets available-->
+                    <% const tickets = ["Adult", "Child", "Senior", "Student", "Disabled"]; %>
+
+                    <!--Loop through tickets-->
+                    <% tickets.forEach(type => { %>
+                        <div class="ticket-row">
+                            <label for="<%= type.toLowerCase() %>Qty">
+                                <strong><%= type %> Tickets</strong>
+                                £<%= event[type.toLowerCase() + "_price"] %> each 
+                                (left: <%= event.tickets_left[type] %> / sold: <%= event[type.toLowerCase() + "_sold"] %>)
+                            </label>
+                            <input type="number" min="0" name="<%= type.toLowerCase() %>Qty" id="<%= type.toLowerCase() %>Qty">
+                        </div>
+                    <% }) %>
+
+                    <!--Kids go free block-->
+                    <div style="height: 1.5em;">
+                        <% if (event.kids_go_free && event.free_kids_age_limit) { %>
+                            <p style="margin-top: 0.5em; font-style: italic;">
+                                Kids <%= event.free_kids_age_limit %> and under go free!
+                            </p>
+                        <% } else { %>
+                            <p style="margin-top: 0.5em; font-style: italic;">
+                                Kids do not go free for this event. Please book a child ticket.
+                            </p>
+                        <% } %>
+                    </div>
+
+                    <!--Obtain atendee name-->
+                    <div>
+                        <label for="name">Your Name:</label>
+                        <input type="text" name="name" id="name" required>
+                    </div>
+
+                    <!--Obtain atendee email-->
+                    <div>
+                        <label for="email">Your Email:</label>
+                        <input type="email" name="email" id="email" required>
+                    </div>
+
+                    <button type="submit" class="button">Confirm Booking</button>
+
+                </form>
+
+                <!-- Feedback Messages -->
+                <div style="min-height: 1.5em; padding: 0.5em 0;">
+                    <% if (success) { %>
+                        <p style="color: green;"><%= success %></p>
+                    <% } else if (error) { %>
+                        <p style="color: red;"><%= error %></p>
+                    <% } else if (valError && valError.length > 0) { %>
+                        <ul style="color: red; padding-left: 1em; margin: 0; list-style: none;">
+                            <% valError.forEach(e => { %>
+                                <li><%= e.msg %></li>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                </div>
+            </section>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

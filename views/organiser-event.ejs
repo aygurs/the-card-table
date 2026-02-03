@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | Organiser Event</title>
+    </head>
+    <body id="organiser-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation Bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/organiser/home">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                    <li><a href="/organiser/home" class="nav-element">Organiser Home</a></li>
+                    <li><a href="/organiser/site-settings" class="nav-element">Site Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main class="page-section">
+            <!--Change title based on if it is a new event (null) or editting an event-->
+            <h1><%= event ? "Edit Event" : "Create New Event" %></h1>
+
+            <!--If event exists (editting) then use edit form action-->
+            <!--If event does not exist (new) use new form action-->
+            <form action="<%= event ? ('/organiser/event/' + event.event_id + '/edit') : '/organiser/event/new' %>" method="POST">
+                <div class="info-container">
+                    <!--Event Name-->
+                    <label for="name">Event Name:</label>
+                    <input type="text" id="name" name="name" value="<%= event?.event_name || '' %>" required />
+
+                    <!--Event Description-->
+                    <label for="description">Event Description:</label>
+                    <textarea id="description" name="description" required><%= event?.event_description || '' %></textarea>
+
+                    <!--Date of Event-->
+                    <label for="date">Date of Event:</label>
+                    <input type="date" id="date" name="date" value="<%= event?.date_of_event || '' %>" required />
+
+                    <!--Location of Event-->
+                    <label for="location">Location of Event:</label>
+                    <input type="text" id="location" name="location" value="<%= event?.event_location || '' %>" required />
+                </div>
+
+                <!--Ticket Types-->
+                <fieldset>
+                    <legend>Adult Tickets:</legend>
+
+                    <label>Quantity:</label>
+                    <input type="number" name="adultQuantity" value="<%= event && event.adult_qty !== null ? event.adult_qty : 0 %>" required />
+
+                    <label>Price:</label>
+                    <input type="number" name="adultPrice" step="0.01" value="<%= event && event.adult_price !== null ? event.adult_price : 0 %>" required />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Senior Tickets:</legend>
+                    
+                    <label>Quantity:</label>
+                    <input type="number" name="seniorQuantity" value="<%= event && event.senior_qty !== null ? event.senior_qty : 0 %>" required />
+
+                    <label>Price:</label>
+                    <input type="number" name="seniorPrice" step="0.01" value="<%= event && event.senior_price !== null ? event.senior_price : 0 %>" required />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Child Tickets:</legend>
+
+                    <label>Quantity:</label>
+                    <input type="number" name="childQuantity" value="<%= event && event.child_qty !== null ? event.child_qty : 0 %>" required />
+
+                    <label>Price:</label>
+                    <input type="number" name="childPrice" step="0.01" value="<%= event && event.child_price !== null ? event.child_price : 0 %>" required />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Student Tickets:</legend>
+                    
+                    <label>Quantity:</label>
+                    <input type="number" name="studentQuantity" value="<%= event && event.student_qty !== null ? event.student_qty : 0 %>" required />
+
+                    <label>Price:</label>
+                    <input type="number" name="studentPrice" step="0.01" value="<%= event && event.student_price !== null ? event.student_price : 0 %>" required />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Disabled Tickets:</legend>
+                    
+                    <label>Quantity:</label>
+                    <input type="number" name="disabledQuantity" value="<%= event && event.disabled_qty !== null ? event.disabled_qty : 0 %>" required />
+
+                    <label>Price:</label>
+                    <input type="number" name="disabledPrice" step="0.01" value="<%= event && event.disabled_price !== null ? event.disabled_price : 0 %>" required />
+                </fieldset>
+
+                <!--Kids Go Free-->
+                <fieldset>
+                    <legend>Kids Under Age Go Free?</legend>
+                    <label><input type="radio" name="kidsFree" value="Y" <%= event?.kids_go_free === 1 ? "checked" : "" %> /> Yes</label>
+                    <label><input type="radio" name="kidsFree" value="N" <%= event?.kids_go_free !== 1 ? "checked" : "" %> /> No</label>
+
+                    <label for="freeAge">Age Limit:</label>
+                    <input type="number" name="freeAge" value="<%= event?.free_kids_age_limit || '' %>" />
+                </fieldset>
+
+                <!--Last modified-->
+                <p>Event Last Modified: <%= event?.date_last_modified || "N/A" %></p>
+
+                <!--Submit Buttons-->
+                <button type="submit" name="action" value="draft" class="button">Save as Draft</button>
+                <button type="submit" name="action" value="publish" class="button">Publish</button>
+
+            </form>
+
+            <!--Show a delete button if the organiser is editting an event-->
+            <% if (event) { %>
+                <form action="/organiser/event/<%= event.event_id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this event? This cannot be undone.');">
+                    <button type="submit" class="button">Delete Event</button>
+                </form>
+            <% } %>
+
+            <!--Feedback Messages-->
+            <div style="min-height: 1.5em; padding: 0.5em 0; color: red;">
+                <%= error ? error : '' %>
+            </div>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

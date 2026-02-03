@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | New Account</title>
+    </head>
+    <body id="organiser-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!--Organiser Account information-->
+            <section class="page-section">
+                <h1>Create a new Organiser Account:</h1>
+                <p>Here, you can create a new organiser accounts, which will allow you to create and host events!</p>
+                <p>
+                    You will need to input the name of your Event Manager name (company/organisation), as well as a description. These will be shown to
+                    attendees. Your username will not. Attendees will use your Event Manager name to recognise events hosted by you!
+                </p>
+            </section>
+
+            <!--Obtain organiser information-->
+            <section class="page-section">
+                <form action="/organiser/create-account" method="POST">
+                    <!--Organiser username-->
+                    <p>
+                        Username: <input id="username" type="text" name="username" value="<%= formData.username || '' %>" />
+                    </p>
+
+                    <!--Organiser password-->
+                    <p>
+                        Password: <input id="password" type="password" name="password" />
+                    </p>
+
+                    <!--Event Manager name-->
+                    <p>
+                        Event Manager Name: <input id="eventName" type="text" name="eventName" value="<%= formData.eventName || '' %>" required />
+                    </p>
+
+                    <!--Event manager description-->
+                    <label for="eventDesc">Event Manager Description:</label>
+                    <textarea id="eventDesc" name="eventDesc" required><%= formData.eventDesc || '' %></textarea>
+
+                    <div>
+                        <a href="/organiser/login" class="link-button">Login</a>
+                        <button type="submit" class="button">Create Account</button>
+                    </div>
+                </form>
+
+                <!-- Feedback Messages -->
+                <div style="min-height: 1.5em; padding: 0.5em 0;">
+                    <% if (success) { %>
+                        <p style="color: green;"><%= success %></p>
+                    <% } else if (error) { %>
+                        <p style="color: red;"><%= error %></p>
+                    <% } else if (valError && valError.length > 0) { %>
+                        <ul style="color: red; padding-left: 1em; margin: 0; list-style: none;">
+                            <% valError.forEach(e => { %>
+                                <li><%= e.msg %></li>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                </div>
+            </section>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

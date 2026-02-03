@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | Event Info</title>
+    </head>
+    <body id="organiser-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/organiser/home">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                    <li><a href="/organiser/home" class="nav-element">Organiser Home</a></li>
+                    <li><a href="/organiser/site-settings" class="nav-element">Site Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!--Event information-->
+            <section class="page-section">
+                <h1><%= event.event_name %></h1>
+                <p><strong>Organiser:</strong> <%= event.event_manager_name %></p>
+                <p><strong>Description:</strong> <%= event.event_description %></p>
+                <p><strong>Location:</strong> <%= event.event_location %></p>
+            </section>
+
+            <!--Event Ticket information-->
+            <section class="page-section">
+                <h2>Tickets Summary</h2>
+                <% for (let type in event.tickets) { %>
+                    <p>
+                        <strong><%= type %>:</strong>
+                        Price £<%= event.tickets[type].price %> |
+                        Sold: <%= event.tickets[type].sold %>,
+                        Left: <%= event.tickets[type].left %>
+                    </p>
+                <% } %>
+
+                <h2>Kids Go Free</h2>
+                <% if (event.kids_go_free) { %>
+                    <p>Children under <strong><%= event.free_kids_age_limit %></strong> go free.</p>
+                <% } else { %>
+                    <p>Kids do not go free for this event.</p>
+                <% } %>
+            </section>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

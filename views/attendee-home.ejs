@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/main.css">
+        <title>TCT | Attendee Home</title>
+    </head>
+    <body id="attendee-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/attendee/home">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                    <li><a href="/attendee/home" class="nav-element">Attendee Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!--Welcome section-->
+            <header class="page-section"> 
+                <h1>Attendee Home Page</h1>
+                <h2>Welcome, Guest!</h2>
+                <p>
+                    Browse upcoming events hosted by the community – from tournaments to trade meetups. 
+                    Click "See More" on any event to view details and book your tickets in just a few steps!
+                </p>
+            </header>
+
+            <!--Event cards title-->
+            <section class="event-header">
+                <img src="/media/TCT_Star.png" alt="Star" width="20">
+                <h2>Current Events:</h2>
+            </section>
+
+            <!--Event cards-->
+            <section aria-labelledby="browse-events" id="attendee-home-event-container">
+                <% if (events.length === 0) { %>
+                    <p class="page-section">No events available right now.</p>
+                <% } else { %>
+                    <% events.forEach(event => { %>
+                        <article class="event-card">
+                            <header>
+                                <h3><%= event.event_name %></h3>
+                                <h4>Hosted by: <%= event.event_manager_name %></h4>
+                            </header>
+                            <p><strong>Date of event: <%= event.date_of_event %></strong></p>
+                            <p>Description: <%= event.event_description %></p>
+                            <p>Location: <%= event.event_location %></p>
+                            <p><i>Date published: <%= event.date_published %></i></p>
+                            <a href="/attendee/event/<%= event.event_id %>" class="link-button">See More</a>
+                        </article>
+                    <% }) %>
+                <% } %>
+            </section>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/media/TCT_Star.png" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <title>TCT | Organiser Home</title>
+    </head>
+    <body id="organiser-body">
+
+        <!--WROTE WITHOUT ASSISTANCE START-->
+        <!--Navigation bar-->
+        <header id="attendee-home-header">
+            <nav id="attendee-nav">
+                <a href="/organiser/home">
+                    <img src="/media/TCT_Logo.png" alt="The Card Table Logo" width="150">
+                </a>
+                <ul id="attendee-nav-list">
+                    <li><a href="/" class="nav-element">Home</a></li>
+                    <li><a href="/organiser/home" class="nav-element">Organiser Home</a></li>
+                    <li><a href="/organiser/site-settings" class="nav-element">Site Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!--Welcome message-->
+            <section class="page-section">
+                <h1>Organiser Home Page</h1>
+                <h2>Welcome, <%= username %>!</h2>
+                <p><strong>Event Manager Name: </strong><%=managerName%></p>
+                <p><strong>Event Manager Description: </strong><%=managerDesc%></p>
+            </section>
+            
+            <!--Published events title-->
+            <div class="event-header">
+                <img src="/media/TCT_Star.png" alt="Star" width="20px">
+                <h3>Your Published Events: </h3>
+                <a href="/organiser/event/new" class="link-button">Create new event</a>
+            </div>
+
+            <!--Published events cards-->
+            <section class="organiser-home-event-container">
+                <!--If there are no published events, show message-->
+                <% if (publishedEvents.length === 0) { %>
+                    <p class="page-section">You currently have no published events.</p>
+                <!--If there are published events, show events-->
+                <% } else { %>
+                    <% publishedEvents.forEach(event => { %>
+                        <div class="event-card">
+                            <h3><%= event.event_name %></h3>
+                            <h4>Hosted by: <%=event.event_manager_name%></h4>
+                            <p><strong>Date of event: <%= event.date_of_event %></strong></p>
+                            <p>Description: <%= event.event_description %></p>
+                            <p>Location: <%= event.event_location %></p>
+                            <p><i>Date published: <%= event.date_published %></i></p>
+                            <p><i>Last Modified: <%= event.date_last_modified || "N/A" %></i></p>
+                            <div>
+                                <a href="/organiser/event/<%= event.event_id %>/edit" class="link-button">Edit</a>
+                                <a href="/organiser/event/<%= event.event_id %>/info" class="link-button">Info</a>
+                            </div>
+                            <a href="/attendee/event/<%= event.event_id %>" class="link-button">View Attendee Event Page</a>
+                            <form action="/organiser/event/<%= event.event_id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this event? This cannot be undone.');">
+                                <button type="submit" class="button">Delete Event</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </section>
+
+            <!--Drafed Events Title-->
+            <div class="event-header">
+                <img src="/media/TCT_Star.png" alt="Star" width="20px">
+                <h3>Your Drafted Events: </h3>
+            </div>
+
+            <!--Drafted Events Cards-->
+            <section class="organiser-home-event-container">
+                <!--If there are no published events, show message-->
+                <% if (draftedEvents.length === 0) { %>
+                    <p class="page-section">You currently have no drafted events.</p>
+                <!--If there are published events, show events-->
+                <% } else { %>
+                    <% draftedEvents.forEach(event => { %>
+                        <div class="event-card">
+                            <h3><%= event.event_name %></h3>
+                            <h4>Hosted by: <%=event.event_manager_name%></h4>
+                            <p><strong>Date of event: <%= event.date_of_event %></strong></p>
+                            <p>Description: <%= event.event_description %></p>
+                            <p>Location: <%= event.event_location %></p>
+                            <p>Date published: <%= event.date_published || "N/A" %></p>
+                            <p>Last Modified: <%= event.date_last_modified %></p>
+                            <div>
+                                <a href="/organiser/event/<%= event.event_id %>/edit" class="link-button">Edit</a>
+                                <a href="/organiser/event/<%= event.event_id %>/info" class="link-button">Info</a>
+                            </div>
+                            <form action="/organiser/event/<%= event.event_id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this event? This cannot be undone.');">
+                                <button type="submit" class="button">Delete Event</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </section>
+        </main>
+        <!--WROTE WITHOUT ASSISTANCE END-->
+    </body>
+</html>
