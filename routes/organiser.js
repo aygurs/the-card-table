@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-//WROTE WITHOUT ASSISTANCE START//
 //Check if a user is logged in
 //Stops non logged in users from going to organiser pages
 function ensureLoggedIn(req, res, next)
@@ -741,7 +740,6 @@ router.post("/site-settings", ensureLoggedIn, (req, res, next) => {
         res.redirect("/organiser/home");
     });
 });
-//WROTE WITHOUT ASSISTANCE END//
 
 // Export the router object so index.js can access it
 module.exports = router;

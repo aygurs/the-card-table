@@ -50,7 +50,6 @@ app.use('/organiser', organiserRoutes);
 const attendeeRoutes = require('./routes/attendee');
 app.use('/attendee', attendeeRoutes);
 
-//WROTE WITHOUT ASSISTANCE START//
 //Custom error handler (global)
 app.use(function (err, req, res, next) {
 
@@ -67,7 +66,6 @@ app.use(function (err, req, res, next) {
         res.status(500).send("Oops! Something went wrong. Please go back and try again, or try again later.");
     }
 });
-//WROTE WITHOUT ASSISTANCE END//
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {

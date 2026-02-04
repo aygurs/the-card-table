@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-//WROTE WITHOUT ASSISTANCE START//
 //Setup express validator
 const {body, validationResult} = require('express-validator');
 
@@ -286,7 +285,6 @@ router.post("/event/:id/book",
         });
     });
 });
-//WROTE WITHOUT ASSISTANCE END//
 
 // Export the router object so index.js can access it
 module.exports = router;
